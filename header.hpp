@@ -3,5 +3,6 @@
 #define header_hpp
 
 //prototypy funkcji
+void czyPierwszeUruchomienie();
 
 #endif
