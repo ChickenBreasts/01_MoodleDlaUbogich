@@ -4,5 +4,6 @@
 
 //prototypy funkcji
 void czyPierwszeUruchomienie(); //sprawdza czy program ma niezbedne pliki(czy to pierwsze uruchomienie), jak nie to je tworzy
+void logowanie (); //pobiera dane do logowania i wpuszcza uzytkownika lub go wypierdala 
 
 #endif
