@@ -106,3 +106,17 @@ void rejestracja ()
     Do_zatwierdzenia.close();
 
     cout<<"Dziekujemy. Zgoszenie wyslano do weryfikacji."<<endl;
+}
+
+int ZliczanieWierszyPliku (string sciezka)
+{
+    fstream plik;
+    int ilosc_wierszy=0;
+    string linia;
+    plik.open( sciezka.c_str(),  ios::in);
+    while(getline(plik,linia)){
+        ilosc_wierszy++;
+    }
+
+    return ilosc_wierszy;
+}
