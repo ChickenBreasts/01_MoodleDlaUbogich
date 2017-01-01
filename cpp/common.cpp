@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <fstream>
 #include <string>
+using namespace std;
 
 void czyPierwszeUruchomienie()
 {
@@ -27,7 +28,7 @@ void czyPierwszeUruchomienie()
         ustawienia.close();
     }
 }
-using namespace std;
+
 void logowanie ()
 {
     int numer_wiersza=1;
@@ -62,3 +63,46 @@ void logowanie ()
         logowanie();
     }
 }
+
+void rejestracja ()
+{
+    fstream sprawdzenie;
+    fstream Do_zatwierdzenia;
+    string nick,haslo1="1",haslo2="0"; //daje im rozne wartosci aby petla dzialala
+    string imie,nazwisko;
+    int indeks,wiek,nr_wiersza;
+    string linia;
+
+    cout<<"Podaj imie: "; cin>>imie;
+    cout<<"Podaj nazwisko: "; cin>>nazwisko;
+    cout<<"Podaj wiek: "; cin>>wiek;
+    do{
+    sprawdzenie.open("hasla.txt" , ios::in);
+    nr_wiersza=1;
+    cout<<"Podaj Nick do logowania: "; cin>>nick;                              // Sprawdzanie czy nick juz
+        while(getline(sprawdzenie,linia)){                                     // przypadkiem nie jest w uzyciu
+            if(nr_wiersza%2==1){
+                if(linia==nick){
+                    cout<<"Taki login juz istnieje!!! Sproboj ponownie."<<endl;
+                    break;
+                }
+            }
+
+            nr_wiersza++;
+        }
+    sprawdzenie.close();
+    }while(nr_wiersza-1!=ZliczanieWierszyPliku());
+
+    sprawdzenie.close();
+
+    while(haslo1!=haslo2){
+        cout<<"Podaj haslo: "; cin>>haslo1;
+        cout<<"Powtorz haslo: "; cin>>haslo2;
+        if(haslo1!=haslo2) cout<<"Powtorzone haslo jest rozne. Sproboj ponownie"<<endl;
+    }
+
+    Do_zatwierdzenia.open("usr//Do-zatwierdzenia", ios::out | ios::app);
+    Do_zatwierdzenia <<imie<<endl<<nazwisko<<endl<<wiek<<endl<<nick<<endl<<haslo1;
+    Do_zatwierdzenia.close();
+
+    cout<<"Dziekujemy. Zgoszenie wyslano do weryfikacji."<<endl;
