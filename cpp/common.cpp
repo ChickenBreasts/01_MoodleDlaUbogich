@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <fstream>
 #include <string>
+#include <cstdio>
 using namespace std;
 
 void czyPierwszeUruchomienie()
@@ -119,4 +120,96 @@ int ZliczanieWierszyPliku (string sciezka)
     }
 
     return ilosc_wierszy;
+}
+
+void UsunKandydata (int nr_kandydata)
+{
+    fstream Do_zatwierdzenia, nowe;
+    string linia;
+    int nr_wiersza=1;
+    Do_zatwierdzenia.open("usr//Do-zatwierdzenia.txt", ios::in);
+    nowe.open("usr//dupa.txt", ios::out );
+    while(getline(Do_zatwierdzenia,linia)){
+        if(nr_wiersza>(5*nr_kandydata) || nr_wiersza<=(nr_kandydata*5)-5){ // wybiera wszystko oprocz kandydata
+            nowe<<linia<<endl;
+        }
+        nr_wiersza++;
+    }
+    Do_zatwierdzenia.close();
+    nowe.close();
+    remove("usr//Do-zatwierdzenia.txt");
+    rename("usr//dupa.txt" , "usr//Do-zatwierdzenia.txt");
+
+}
+
+void DopiszHaslo (int nr_kandydata)
+{
+    fstream hasla;
+    fstream Do_zatwierdzenia;
+    string nick,haslo,linia;
+    int nr_wiersza=1;
+
+    Do_zatwierdzenia.open("usr//Do-zatwierdzenia.txt",ios::in);
+
+    while(getline(Do_zatwierdzenia,linia)){
+        if(nr_wiersza==(5*nr_kandydata)-1){
+            nick=linia;
+        }if(nr_wiersza==5*nr_kandydata){
+            haslo=linia;
+            break;
+        }
+
+            nr_wiersza++;
+    }
+    Do_zatwierdzenia.close();
+
+    hasla.open("hasla.txt", ios::app);
+
+    hasla<<nick<<endl;
+    hasla<<haslo<<endl;
+
+}
+
+void DrukowanieKandydatow ()
+{
+    fstream dane_kandydatow;
+    int nr_wiersza=1;
+    string linia;
+    dane_kandydatow.open("usr//Do-zatwierdzenia.txt" , ios::in);  //drukuje kandydatow na ekran
+
+    while (getline(dane_kandydatow,linia)){
+        if(nr_wiersza%5==1) cout<<"Kandydat numer: "<<nr_wiersza/5+1<<endl;
+        cout<<linia<<endl;
+        nr_wiersza++;
+    }
+    dane_kandydatow.close();
+}
+
+void ZatwierdzanieKont ()
+{
+    fstream dane_kandydatow;
+    int nr_wiersza=1,opcja,nr_kandydata;
+    string linia;
+
+    while(true){
+    cout<<"OPCJE: 1-zatwierdz 2-odrzuc 3-wyswietl kandydatow 4-wyjdz"<<endl;
+    cout<<"Wybierz opcje: "; cin>>opcja;
+    if(opcja==1){
+        cout<<"Podaj numer kandydata do zatwierdzenia: ";
+        cin>>nr_kandydata;
+
+            DopiszHaslo(nr_kandydata);
+            UsunKandydata(nr_kandydata);
+
+    }else if(opcja==2){
+        cout<<"Podaj numer kandydata do odrzucenia: ";
+        cin>>nr_kandydata;
+
+            UsunKandydata(nr_kandydata);         
+
+    }else if(opcja==3){
+        DrukowanieKandydatow();
+    }else if(opcja==4) cout<<"Zostaniesz przeniesiony do menu"<<endl;  //w tym miejscu damy fukcje ktora przenosi do menu
+    else cout<<"Nie wlasciwa opcja. Sprobuj jeszcze raz!"<<endl;
+    }
 }
