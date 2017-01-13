@@ -11,6 +11,6 @@ void UsunKandydata (int nr_kandydata); //Usuwa wszystkie dane o kandydacie z poc
 void DopiszHaslo (int nr_kandydata); //Dopisuje nick i haslo kandydata do pliku hasla.txt
 void DrukowanieKandydatow (); //wyswietla poczekalnie
 void ZatwierdzanieKont (); // Pozwala na zatwierdzenie lub odrzucenie konta
-
-
+void skrzynka(); //skrzynka pozwala pisac wiadomosci i czytac nowe
+void otrzymanaWiadomosc(); //czyta nowa wiadomosc
 #endif

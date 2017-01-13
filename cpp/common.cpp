@@ -8,7 +8,7 @@ using namespace std;
 
 void czyPierwszeUruchomienie()
 {
-    std::fstream kalendarz;
+    fstream kalendarz;
     kalendarz.open("kalendarz.txt");
     if(kalendarz.is_open()) //jesli kalendarz instnieje to go zamykamy
     {
@@ -18,15 +18,21 @@ void czyPierwszeUruchomienie()
     {
         CreateDirectory(("usr"), NULL);
         CreateDirectory(("usr\\prof"), NULL);
-        CreateDirectory(("usr\\prof\\mail"), NULL);
-        std::ofstream kalendarz ("kalendarz.txt");
+
+        ofstream kalendarz ("kalendarz.txt");
         kalendarz.close();
-        std::ofstream hasla ("hasla.txt");
+        ofstream hasla ("hasla.txt");
         hasla.close();
-        std::ofstream do_zatwierdzenia ("usr\\do_zatwierdzenia.txt");
+        ofstream do_zatwierdzenia ("usr\\do_zatwierdzenia.txt");
         do_zatwierdzenia.close();
-        std::ofstream ustawienia ("usr\\prof\\ustawienia.txt");
+        ofstream ustawienia ("usr\\prof\\ustawienia.txt");
         ustawienia.close();
+
+        fstream hasla;
+        hasla.open("hasla.txt", fstream::out);
+        hasla << "profesor"<<endl;
+        hasla << "profesor2"<<endl;
+        hasla.close();
     }
 }
 
@@ -205,11 +211,86 @@ void ZatwierdzanieKont ()
         cout<<"Podaj numer kandydata do odrzucenia: ";
         cin>>nr_kandydata;
 
-            UsunKandydata(nr_kandydata);         
+            UsunKandydata(nr_kandydata);
 
     }else if(opcja==3){
         DrukowanieKandydatow();
     }else if(opcja==4) cout<<"Zostaniesz przeniesiony do menu"<<endl;  //w tym miejscu damy fukcje ktora przenosi do menu
     else cout<<"Nie wlasciwa opcja. Sprobuj jeszcze raz!"<<endl;
     }
+}
+
+void nowaWiadomosc() //WYMAGA ZMIAN SCIEZKI
+{
+  string odbiorcy, tresc, tytul;
+  int licznik = 0;
+  cout << "Podaj odbiorce(numer indeksu) : ";
+  getline(cin, odbiorcy);
+  std::cout << "Tytul: ";
+  getline(cin, tytul);
+  std::cout << "Tresc: ";
+  getline(cin,tresc);
+
+  string path = "usr/" + odbiorcy+ "/nowa.txt"; //ZMIEN DLA WINDOWSA
+
+  fstream nowa;
+  nowa.open(path, ios::out | ios::app);
+    nowa << "Tytul: " << tytul << endl;
+    nowa << "Tresc: " << tresc << endl;
+    nowa << "Podpis: " << zalogowany << endl;
+  nowa.close();
+}
+
+void otrzymanaWiadomosc() //WYMAGA ZMIAN SCIEZKI
+{
+  string path1 = "usr/" + zalogowany + "/nowa.txt";
+  string tytul, tresc, podpis, wiersz,path2;
+  fstream nowa;
+  nowa.open(path1, ios::in | ios::out);
+  if (!nowa.good()) {
+    std::cout << "Nie masz nowych wiadomosci :(" << endl;
+    return false;
+  }
+  else
+  {
+    getline(nowa, tytul);
+    getline(nowa, tresc);
+    getline(nowa, podpis);
+  }
+  std::cout << "Tytul: " << tytul << endl;
+  std::cout << "Tresc: " << tresc << endl;
+  std::cout << "Podpis: " << podpis << endl;
+
+  ofstream tmp("usr/" + zalogowany + "/tmp.txt");
+  tmp.close();
+  tmp.open("usr/" + zalogowany + "/tmp.txt", ios::in);
+  while(getline(nowa, wiersz)) {
+    tmp << wiersz << endl;
+  }
+  tmp.close();
+  nowa.close();
+  remove(path1.c_str());
+  path2="usr/" + zalogowany + "/tmp.txt";
+  rename(path2.c_str(),path1.c_str());
+}
+
+void skrzynka()
+{
+  int petlaSkrzynki=0,wybor;
+  std::cout << "Jestes w swojej skrzynce." << endl;
+  std::cout << "Wpisz: " << endl;
+  std::cout << "1.Napisz nowa wiadomosc." << endl;
+  std::cout << "2.Przeczytaj nowa wiadomosc." << endl;
+  std::cout << "3.Wroc do poprzedniego menu." << endl;
+  do {
+    cin>>wybor;
+    switch (wybor) {
+      case 1:
+        nowaWiadomosc();
+      case 2:
+        otrzymanaWiadomosc();
+      case 3:
+        petlaSkrzynki++;
+    }
+  } while(petlaSkrzynki==0);
 }
