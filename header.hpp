@@ -15,4 +15,5 @@ void skrzynka(); //skrzynka pozwala pisac wiadomosci i czytac nowe
 void otrzymanaWiadomosc(); //czyta nowa wiadomosc
 void ustawienia(); //pozwala na zobaczenie i zmiane niektoryc hdanych swojego konta
 void ZalogowanyProfesor(); //wyswietla menu dla profka
+void ZalogowanyStudent(); //wyswietla medu studenta
 #endif
