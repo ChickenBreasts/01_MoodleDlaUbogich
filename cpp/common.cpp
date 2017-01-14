@@ -294,3 +294,91 @@ void skrzynka()
     }
   } while(petlaSkrzynki==0);
 }
+
+void ustawienia()
+{
+    fstream ustawienia;
+    string linia;
+    int opcja;
+    int wiersz=1;
+    while(true)
+    {
+    cout<<"OPCJE: 1-Zobacz swoje dane 2-Zmien dane 3-Powrot do menu"<<endl;
+    cout<<"Wybierz opcje: ";
+    cin>>opcja;
+    if(opcja==1){
+        ustawienia.open("ustawienia.txt", ios::in);
+        while(getline(ustawienia,linia)){
+
+        switch(wiersz){
+
+        case 1: cout<<"Nick: "; break;
+        case 2: cout<<"Imie i Nazwisko: "; break;
+        case 3: cout<<"Mail: "; break;
+        case 4: cout<<"Status: "; break;
+        case 5: cout<<"Indeks: "; break;
+        default: break;
+
+        }
+        cout<<linia<<endl;
+        wiersz++;
+        }
+        wiersz=1;
+        ustawienia.close();
+    }else if(opcja==2){
+        string zmiana;
+        fstream nowe;
+        int nr_wiersza;
+        cout<<"Co chcesz zmienic? 1-Login 2-Mail"<<endl;
+        cout<<"Wybierz opcje: ";
+        cin>>opcja;
+            switch (opcja){
+                case 1:{
+                    nr_wiersza=1;
+                    ustawienia.open("ustawienia.txt" , ios::in);
+                    nowe.open("nowe.txt", ios::out);
+                    cout<<"Podaj nowy Nick: ";
+                    cin>>zmiana;
+                    while(getline(ustawienia,linia)){
+                        if(nr_wiersza==1) {
+                                nowe<<zmiana<<endl;
+                        }else nowe<<linia<<endl;
+                        nr_wiersza++;
+                    }
+                    ustawienia.close();
+                    nowe.close();
+                    remove("ustawienia.txt");
+                    rename("nowe.txt","ustawienia.txt");
+                    break;
+                }
+                case 2:{
+                    ustawienia.open("ustawienia.txt" , ios::in);
+                    nr_wiersza=1;
+                    nowe.open("nowe.txt", ios::out);
+                    cout<<"Podaj nowy Mail: ";
+                    cin>>zmiana;
+                    while(getline(ustawienia,linia)){
+                        if(nr_wiersza==3) {
+                                nowe<<zmiana<<endl;
+                        }else nowe<<linia<<endl;
+                        nr_wiersza++;
+                    }
+                    ustawienia.close();
+                    nowe.close();
+                    remove("ustawienia.txt");
+                    rename("nowe.txt","ustawienia.txt");
+                    break;
+                }
+                default: break;
+        }
+
+
+    }else if(opcja==3){
+
+        cout<<"Zostaniesz Przeniesiony do menu.";
+        //zalogowany student profesor
+        break;
+    }else cout<<"Nie wlasciwa opcja!!! Sproboj jeszcze raz."<<endl;
+    }
+
+}
