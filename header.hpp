@@ -14,4 +14,5 @@ void ZatwierdzanieKont (); // Pozwala na zatwierdzenie lub odrzucenie konta
 void skrzynka(); //skrzynka pozwala pisac wiadomosci i czytac nowe
 void otrzymanaWiadomosc(); //czyta nowa wiadomosc
 void ustawienia(); //pozwala na zobaczenie i zmiane niektoryc hdanych swojego konta
+void ZalogowanyProfesor(); //wyswietla menu dla profka
 #endif
