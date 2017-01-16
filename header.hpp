@@ -2,7 +2,7 @@
 #ifndef header_hpp
 #define header_hpp
 
-//ZMIENNE GLOBALNE
+// ZMIENNE GLOBALNE
 
 #include<string>
 std::string sciezka;
