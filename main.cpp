@@ -22,7 +22,7 @@ int main() {
             rejestracja();
         break;
         case 3:
-            exitCode++;
+            exitCode=1;
         break;
         }
     }

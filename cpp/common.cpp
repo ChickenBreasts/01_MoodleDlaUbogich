@@ -44,8 +44,10 @@ void logowanie ()
     string Nick_Z_Pliku , Haslo_Z_Pliku , Nick_prof , Haslo_prof;
     string linia; //linia pliku
 
-    cout<<"Podaj nick: "; cin>>nick;
-    cout<<"Podaj haslo: "; cin>>haslo;
+    cout<<"Podaj nick: ";
+    cin>>nick;
+    cout<<"Podaj haslo: ";
+    cin>>haslo;
 
     log.open("hasla.txt" , ios::in);
     if(log.good()){
@@ -66,13 +68,13 @@ void logowanie ()
             }
             if(nick==Nick_Z_Pliku && haslo==Haslo_Z_Pliku){
                 cout<<"zalogowany student"<<endl;
-                //zalogowanyStudent();
+                zalogowanyStudent();
                 break;                                // tutaj trzeba wsadzic fukcje
                                                       // ktora umieszcza uzytkownika w menu itp
 
             }else if(nick==Nick_prof && haslo==Haslo_prof){
                 cout<<"zalogowany Profesor"<<endl;
-                //zalogowanyProfesor();
+                zalogowanyProfesor();
                 break;
             }
             numer_wiersza++;
@@ -91,7 +93,7 @@ void logowanie ()
         if(opcja==1){
             logowanie();
         }else if(opcja==2){
-
+              exitCode=1;
         }else {
         cout<<"Brak Opcji!!!";
         }
@@ -304,7 +306,7 @@ void otrzymanaWiadomosc()
 
 void skrzynka()
 {
-  int petlaSkrzynki=0,wybor;
+  int wybor;
   std::cout << "Jestes w swojej skrzynce." << endl;
   std::cout << "Wpisz: " << endl;
   std::cout << "1.Napisz nowa wiadomosc." << endl;
@@ -318,7 +320,7 @@ void skrzynka()
       case 2:
         otrzymanaWiadomosc();
       case 3:
-        petlaSkrzynki++;
+        break;
     }
   } while(petlaSkrzynki==0);
 }
@@ -338,16 +340,16 @@ void ustawienia()
         ustawienia.open("ustawienia.txt", ios::in);
         while(getline(ustawienia,linia)){
 
-        switch(wiersz){
+          switch(wiersz){
 
-        case 1: cout<<"Nick: "; break;
-        case 2: cout<<"Imie i Nazwisko: "; break;
-        case 3: cout<<"Mail: "; break;
-        case 4: cout<<"Status: "; break;
-        case 5: cout<<"Indeks: "; break;
-        default: break;
+            case 1: cout<<"Nick: "; break;
+            case 2: cout<<"Imie i Nazwisko: "; break;
+            case 3: cout<<"Mail: "; break;
+            case 4: cout<<"Status: "; break;
+            case 5: cout<<"Indeks: "; break;
+            default: break;
 
-        }
+          }
         cout<<linia<<endl;
         wiersz++;
         }
@@ -404,7 +406,6 @@ void ustawienia()
     }else if(opcja==3){
 
         cout<<"Zostaniesz Przeniesiony do menu.";
-        //zalogowany student profesor
         break;
     }else cout<<"Nie wlasciwa opcja!!! Sproboj jeszcze raz."<<endl;
     }

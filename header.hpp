@@ -27,4 +27,3 @@ void ZalogowanyProfesor(); //DO UZUPELNIENIA  wyswietla menu dla profka
 void ZalogowanyStudent(); // DO UZUPELNIENIAwyswietla medu studenta
 
 #endif
-a

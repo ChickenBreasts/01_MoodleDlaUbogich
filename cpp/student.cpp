@@ -8,7 +8,7 @@ void ZalogowanyStudent () // DO UZUPELNIENIA
     int opcja;
     while(true){
     cout<<"Witaj Studencie W Moodle dla biednych!"<<endl;
-    cout<<"OPCJE:"<<endl<<"1-Poczta 2-Studia 3-kalendarz 4-ustawienia 5-wyjscie"<<endl;
+    cout<<"OPCJE:"<<endl<<"1-Poczta 2-Studia 3-kalendarz 4-ustawienia 5-wyloguj"<<endl;
     cout<<"Wybierz Opcje: ";cin>>opcja;
     switch(opcja){
         case 1: skrzynka();
@@ -29,7 +29,7 @@ void ZalogowanyStudent () // DO UZUPELNIENIA
             break;
         case 4: ustawienia();
             break;
-        case 5: exitCode++;
+        case 5: exitCode=1;
         default: cout<<"Zla opcja!!! Sproboj jeszcze raz.";break;
         }
     }
