@@ -17,3 +17,4 @@ void ustawienia(); //pozwala na zobaczenie i zmiane niektoryc hdanych swojego ko
 void ZalogowanyProfesor(); //wyswietla menu dla profka
 void ZalogowanyStudent(); //wyswietla medu studenta
 #endif
+a
