@@ -36,12 +36,12 @@ void czyPierwszeUruchomienie()
     }
 }
 
-void logowanie () //DO UZUPELNIENIA
+void logowanie ()
 {
     int numer_wiersza=1;
     fstream log; //plik do logowania
     string nick , haslo;
-    string Nick_Z_Pliku , Haslo_Z_Pliku;
+    string Nick_Z_Pliku , Haslo_Z_Pliku , Nick_prof , Haslo_prof;
     string linia; //linia pliku
 
     cout<<"Podaj nick: "; cin>>nick;
@@ -50,24 +50,52 @@ void logowanie () //DO UZUPELNIENIA
     log.open("hasla.txt" , ios::in);
     if(log.good()){
         while(getline(log,linia)){
+
+            if((numer_wiersza!=1) && (numer_wiersza!=2)){
             switch (numer_wiersza%2)                  // wpisywanie nieparzystych linii
             {                                         // pliku jako nicki i parzystych
                 case 1: Nick_Z_Pliku = linia; break;  // jako hasla
                 case 0: Haslo_Z_Pliku = linia; break;
             }
+            }
+            else{
+                switch(numer_wiersza){
+                case 1: Nick_prof=linia; break;
+                case 2: Haslo_prof=linia; break;
+            }
+            }
             if(nick==Nick_Z_Pliku && haslo==Haslo_Z_Pliku){
-                cout<<"zalogowany"<<endl;              // tutaj trzeba wsadzic fukcje
-                break;                                 // ktora umieszcza uzytkownika w menu itp
+                cout<<"zalogowany student"<<endl;
+                //zalogowanyStudent();
+                break;                                // tutaj trzeba wsadzic fukcje
+                                                      // ktora umieszcza uzytkownika w menu itp
+
+            }else if(nick==Nick_prof && haslo==Haslo_prof){
+                cout<<"zalogowany Profesor"<<endl;
+                //zalogowanyProfesor();
+                break;
             }
             numer_wiersza++;
         }
 
-    }
+    }else{cout<<"Blad odczytu hasla.txt";}
+
     log.close();
-    if(numer_wiersza==ZliczanieWierszyPliku()+1)
+    if(numer_wiersza==ZliczanieWierszyPliku("hasla.txt")+1)
     {
-        cout<<"bledne haslo lub nick!!! sproboj jeszcze raz"<<endl;
-        logowanie();
+        cout<<"bledne haslo lub nick!!!"<<endl;
+        cout<<"OPCJE: 1-Logowanie 2-Wyjscie"<<endl;
+        int opcja;
+        cout<<"Wybierz Opcje: ";
+        cin>>opcja;
+        if(opcja==1){
+            logowanie();
+        }else if(opcja==2){
+
+        }else {
+        cout<<"Brak Opcji!!!";
+        }
+
     }
 }
 
