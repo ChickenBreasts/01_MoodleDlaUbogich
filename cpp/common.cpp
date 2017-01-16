@@ -36,7 +36,7 @@ void czyPierwszeUruchomienie()
     }
 }
 
-void logowanie ()
+void logowanie () //DO UZUPELNIENIA
 {
     int numer_wiersza=1;
     fstream log; //plik do logowania
@@ -220,7 +220,7 @@ void ZatwierdzanieKont ()
     }
 }
 
-void nowaWiadomosc() //WYMAGA ZMIAN SCIEZKI
+void nowaWiadomosc()
 {
   string odbiorcy, tresc, tytul;
   int licznik = 0;
@@ -231,7 +231,7 @@ void nowaWiadomosc() //WYMAGA ZMIAN SCIEZKI
   std::cout << "Tresc: ";
   getline(cin,tresc);
 
-  string path = "usr/" + odbiorcy+ "/nowa.txt"; //ZMIEN DLA WINDOWSA
+  string path = "usr//" + odbiorcy+ "//nowa.txt";
 
   fstream nowa;
   nowa.open(path, ios::out | ios::app);
@@ -241,9 +241,9 @@ void nowaWiadomosc() //WYMAGA ZMIAN SCIEZKI
   nowa.close();
 }
 
-void otrzymanaWiadomosc() //WYMAGA ZMIAN SCIEZKI
+void otrzymanaWiadomosc()
 {
-  string path1 = "usr/" + zalogowany + "/nowa.txt";
+  string path1 = "usr//" + zalogowany + "//nowa.txt";
   string tytul, tresc, podpis, wiersz,path2;
   fstream nowa;
   nowa.open(path1, ios::in | ios::out);
@@ -261,16 +261,16 @@ void otrzymanaWiadomosc() //WYMAGA ZMIAN SCIEZKI
   std::cout << "Tresc: " << tresc << endl;
   std::cout << "Podpis: " << podpis << endl;
 
-  ofstream tmp("usr/" + zalogowany + "/tmp.txt");
+  ofstream tmp("usr//" + zalogowany + "//tmp.txt");
   tmp.close();
-  tmp.open("usr/" + zalogowany + "/tmp.txt", ios::in);
+  tmp.open("usr//" + zalogowany + "//tmp.txt", ios::in);
   while(getline(nowa, wiersz)) {
     tmp << wiersz << endl;
   }
   tmp.close();
   nowa.close();
   remove(path1.c_str());
-  path2="usr/" + zalogowany + "/tmp.txt";
+  path2="usr//" + zalogowany + "//tmp.txt";
   rename(path2.c_str(),path1.c_str());
 }
 
